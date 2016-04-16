@@ -57,6 +57,10 @@ $.fn.sss = function(options) {
 
 				reset_timer();
 
+				// UPDATE NAV DOT'S
+				dots = wrapper.find('.sssdots').children();
+				dots.eq(target).addClass('active').siblings().removeClass('active');
+
 			}
 		}
 
@@ -75,6 +79,14 @@ $.fn.sss = function(options) {
 		// Create arrows if setting is true
 		if (settings.arrows) {
 			slider.append('<div class="sssprev"/>', '<div class="sssnext"/>');
+
+			// Generate Navigation Dots
+			dotnav = $('<div class="sssdots"></div>');
+			for (var i = 0; i < slide_count; i++) {
+				dotnav.append('<span class="sssdot"></span>');
+			}
+			dotnav.children().eq(starting_slide).addClass('active');
+			slider.append(dotnav);
 		}
 
 		next = slider.find('.sssnext');
@@ -85,6 +97,13 @@ $.fn.sss = function(options) {
 			var key = (e.keyCode ? e.keyCode : e.which);
 			if (key === 39) { next_slide(); }
 			else if (key === 37) { prev_slide(); }
+		});
+
+		$(document).on('click', '.sssdots .sssdot', function() {
+
+			// Update target and animate slide in
+			target = $(this).index();
+			animate_slide(target);
 		});
 
 		// Bind click events and animate default height and slide when document is ready

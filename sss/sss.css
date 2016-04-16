@@ -1,6 +1,6 @@
 .sss {
 	height: 0;
-	margin: 0; 
+	margin: 0;
 	padding: 0;
 	position: relative;
 	display: block;
@@ -26,6 +26,26 @@
 	position: relative;
 	display: block;
 }
+
+.sssdots {
+	display: block;
+	position: absolute;
+	bottom: 30px;
+	right: 9%;
+}
+
+.sssdot {
+	display: block;
+	float: left;
+	margin-right: 10px;
+	background-color: #e0e0e0;
+	box-shadow: -1px 1px 8px rgba(0,0,0,.2);
+	width: 16px;
+	height: 16px;
+	border-radius: 8px;
+}
+.sssdot:last-of-type	{ margin-right: 0; }
+.sssdot.active			{ background-color: #747474; }
 
 .sssnext, .sssprev {
 	width: 25px;
