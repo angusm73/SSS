@@ -1,108 +1,101 @@
-/** Super Simple Slider by @intllgnt **/
+/** Super Simple Slider by @intllgnt
+Extra mods + hax by Angus Moore **/
 
-;(function($, window, document, undefined ) {
+;(function($, window, document, undefined) {
 
 $.fn.sss = function(options) {
 
-// Options
-
+	// Options
 	var settings = $.extend({
-	slideShow : true,
-	startOn : 0,
-	speed : 3500,
-	transition : 400,
-	arrows : true
+		slideShow:	true,
+		startOn:	0,
+		speed:		3500,
+		transition:	400,
+		arrows:		true
 	}, options);
 
 	return this.each(function() {
 
-// Variables
+		// Variables
+		var wrapper			= $(this),
+			slides			= wrapper.children().wrapAll('<div class="sss"/>').addClass('ssslide'),
+			slider			= wrapper.find('.sss'),
+			slide_count		= slides.length,
+			transition		= settings.transition,
+			starting_slide	= settings.startOn,
+			target			= starting_slide > slide_count - 1 ? 0 : starting_slide,
+			animating		= false,
+			clicked,
+			timer,
+			key,
+			prev,
+			next,
 
-	var
-	wrapper = $(this),
-	slides = wrapper.children().wrapAll('<div class="sss"/>').addClass('ssslide'),
-	slider = wrapper.find('.sss'),
-	slide_count = slides.length,
-	transition = settings.transition,
-	starting_slide = settings.startOn,
-	target = starting_slide > slide_count - 1 ? 0 : starting_slide,
-	animating = false,
-	clicked,
-	timer,
-	key,
-	prev,
-	next,
+		// Reset Slideshow
+		reset_timer = settings.slideShow ? function() {
+			clearTimeout(timer);
+			timer = setTimeout(next_slide, settings.speed);
+		} : $.noop;
 
-// Reset Slideshow
+		// Get the height as a percentage of the width
+		function get_height(target) {
+			return ((slides.eq(target).height() / slider.width()) * 100) + '%';
+		}
 
-	reset_timer = settings.slideShow ? function() {
-	clearTimeout(timer);
-	timer = setTimeout(next_slide, settings.speed);
-	} : $.noop;
+		// Animate Slider
+		function animate_slide(target) {
+			if (!animating) {
+				animating = true;
+				var target_slide = slides.eq(target);
 
-// Animate Slider
+				target_slide.fadeIn(transition);
+				slides.not(target_slide).fadeOut(transition);
 
-	function get_height(target) {
-	return ((slides.eq(target).height() / slider.width()) * 100) + '%';
-	}
+				slider.animate({paddingBottom: get_height(target)}, transition,  function() {
+					animating = false;
+				});
 
-	function animate_slide(target) {
-	if (!animating) {
-	animating = true;
-	var target_slide = slides.eq(target);
+				reset_timer();
 
-	target_slide.fadeIn(transition);
-	slides.not(target_slide).fadeOut(transition);
+			}
+		}
 
-	slider.animate({paddingBottom: get_height(target)}, transition,  function() {
-	animating = false;
-	});
+		// Next Slide
+		function next_slide() {
+			target = target === slide_count - 1 ? 0 : target + 1;
+			animate_slide(target);
+		}
 
-	reset_timer();
+		// Prev Slide
+		function prev_slide() {
+			target = target === 0 ? slide_count - 1 : target - 1;
+			animate_slide(target);
+		}
 
-	}};
+		// Create arrows if setting is true
+		if (settings.arrows) {
+			slider.append('<div class="sssprev"/>', '<div class="sssnext"/>');
+		}
 
-// Next Slide
+		next = slider.find('.sssnext');
+		prev = slider.find('.sssprev');
 
-	function next_slide() {
-	target = target === slide_count - 1 ? 0 : target + 1;
-	animate_slide(target);
-	}
+		// Slide on arrow key press
+		$(document).on('keydown', function(e) {
+			var key = (e.keyCode ? e.keyCode : e.which);
+			if (key === 39) { next_slide(); }
+			else if (key === 37) { prev_slide(); }
+		});
 
-// Prev Slide
-
-	function prev_slide() {
-	target = target === 0 ? slide_count - 1 : target - 1;
-	animate_slide(target);
-	}
-
-	if (settings.arrows) {
-	slider.append('<div class="sssprev"/>', '<div class="sssnext"/>');
-	}
-
-	next = slider.find('.sssnext'),
-	prev = slider.find('.sssprev');
-
-	$(window).load(function() {
-
-	slider.css({paddingBottom: get_height(target)}).click(function(e) {
-	clicked = $(e.target);
-	if (clicked.is(next)) { next_slide() }
-	else if (clicked.is(prev)) { prev_slide() }
-	});
-
-	animate_slide(target);
-
-	$(document).keydown(function(e) {
-	key = e.keyCode;
-	if (key === 39) { next_slide() }
-	else if (key === 37) { prev_slide() }
-	});
+		// Bind click events and animate default height and slide when document is ready
+		$(document).ready(function() {
+			slider.css({paddingBottom: get_height(target)});
+			next.click(next_slide);
+			prev.click(prev_slide);
+			animate_slide(target);
+		});
 
 	});
-// End
-
-});
 
 };
 })(jQuery, window, document);
