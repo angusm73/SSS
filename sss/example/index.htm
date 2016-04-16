@@ -1,0 +1,67 @@
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<title>Super Simple Slider Example</title>
+
+	<link rel="stylesheet" href="./../sss.css" />
+
+	<style>
+		html, body						{ margin: 0; padding: 0; font-family: sans-serif; text-align: center; background-color: #e7e7e7; color: #4b4b4b; }
+		.site-container					{ max-width: 960px; margin: 0 auto; padding: 80px 0; text-align: left; }
+		h1, h2							{ margin: 0; font-size: 4em; font-weight: bold; letter-spacing: -.04em; }
+		h1								{ font-size: 4em; margin-bottom: 40px; }
+		h2								{ font-size: 2.6em; }
+		.slide							{ padding: 80px 9%; box-sizing: border-box; }
+			.blue, .red, .purple		{ color: #fff; }
+			.slide.blue					{ background-color: #009ACD; }
+			.slide.red					{ background-color: #9D1309; }
+			.slide.purple				{ background-color: #68228B; }
+	</style>
+
+</head>
+
+
+
+<body>
+
+	<div class="site-container">
+
+		<h1>Super Simple Slider</h1>
+
+		<div class="slides">
+
+			<div class="slide">
+				<h2>Slide 1</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis eos placeat delectus mollitia, similique? Corporis saepe quae hic explicabo laborum! Nemo, similique ut accusantium magnam natus culpa quasi veritatis nesciunt?</p>
+			</div>
+
+			<div class="slide blue">
+				<h2>Slide 2</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem doloribus optio excepturi similique fugiat explicabo impedit maiores officiis obcaecati repellendus, sunt minima! Esse doloremque beatae atque, corporis cum nihil ratione?</p>
+			</div>
+
+			<div class="slide purple">
+				<h2>Slide 3</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus non nemo sit repudiandae laboriosam porro maiores temporibus. Dolorem, sunt, perspiciatis. Unde nesciunt, amet provident quos quia illo nihil iusto ipsam!</p>
+			</div>
+
+			<div class="slide red">
+				<h2>Slide 4</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat eum reiciendis laudantium aut magnam aliquid quia, illum, quis ipsam numquam, rem a consequatur deserunt nobis tempore nulla inventore ipsa facilis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis non commodi, at quidem animi iste quam quia, aliquam mollitia iure reiciendis, provident. Optio distinctio eum doloribus amet animi at dolores. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur quasi enim, fuga corporis aspernatur voluptate hic odio quae, sunt animi illum, magni voluptas quas facere delectus reiciendis similique dolorum voluptates.</p>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+	<script src="./../sss.js"></script>
+	<script>
+	$(function() {
+		$(".slides").sss();
+	});
+	</script>
+
+</body>
+</html>

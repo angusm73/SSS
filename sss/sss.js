@@ -39,7 +39,7 @@ $.fn.sss = function(options) {
 
 		// Get the height as a percentage of the width
 		function get_height(target) {
-			return ((slides.eq(target).height() / slider.width()) * 100) + '%';
+			return ((slides.eq(target).outerHeight() / slider.width()) * 100) + '%';
 		}
 
 		// Animate Slider
